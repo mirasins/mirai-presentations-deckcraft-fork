@@ -687,26 +687,17 @@ pub fn show(app: &mut SlideApp, ui: &mut Ui) {
     let state = &mut app.assistant;
     let busy = state.pending.is_some();
     ui.spacing_mut().item_spacing.y = 8.0;
-    brand_header(ui, &t);
-    status_line(ui, state, &t);
-    scope_chooser(ui, state, shapes, &t);
-    if !state.message.is_empty() {
-        notice(ui, &state.message, &t);
-    }
+    // The composer claims the bottom first, so on a short window the header, status and history
+    // scroll above it instead of pushing Send, Confirm and Cancel out of reach.
     egui::Panel::bottom("assistant-composer").frame(egui::Frame::NONE).show(ui, |ui| {
         composer(ui, state, busy, armed_current.as_ref(), &mut action, &t);
     });
     egui::ScrollArea::vertical().id_salt("assistant-history").auto_shrink([false, false]).show(ui, |ui| {
-        if ui.checkbox(&mut state.include_images, "Send rendered slide images").changed() {
-            state.armed = None;
-        }
-        if state.include_images {
-            let which = if state.scope == "presentation" {
-                format!("Claude will also receive rendered pictures of the first {MAX_IMAGES} slides.")
-            } else {
-                "Claude will also receive a rendered picture of the current slide.".to_owned()
-            };
-            ui.label(RichText::new(which).small().color(t.text_dim));
+        brand_header(ui, &t);
+        status_line(ui, state, &t);
+        scope_chooser(ui, state, shapes, &t);
+        if !state.message.is_empty() {
+            notice(ui, &state.message, &t);
         }
         if let Some(pending) = &state.pending {
             ui.horizontal(|ui| {
@@ -870,6 +861,18 @@ fn composer(ui: &mut Ui, state: &mut State, busy: bool, current: Option<&Armed>,
     if enter == Some(false) && ready {
         let confirmed = state.armed.as_ref().is_some_and(|armed| Some(armed) == current);
         *action = Some(if confirmed { Act::Send } else { Act::Arm });
+    }
+    // Part of the composer, not the scrolling history, so it stays beside Send on a short window.
+    if ui.checkbox(&mut state.include_images, "Send rendered slide images").changed() {
+        state.armed = None;
+    }
+    if state.include_images {
+        let which = if state.scope == "presentation" {
+            format!("Claude will also receive rendered pictures of the first {MAX_IMAGES} slides.")
+        } else {
+            "Claude will also receive a rendered picture of the current slide.".to_owned()
+        };
+        ui.label(RichText::new(which).small().color(t.text_dim));
     }
     ui.add_enabled_ui(!busy, |ui| {
         ui.add(
