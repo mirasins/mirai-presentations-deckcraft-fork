@@ -11,7 +11,7 @@
 /// downloaded from the fork's own repository, never from upstream.
 #[cfg(not(target_arch = "wasm32"))]
 pub const UPDATE_APP: craft_update::app::App = craft_update::app::App {
-    repo: "mirasins/deckcraft",
+    repo: "mirasins/mirai-presentations-deckcraft-fork",
     icon_png: Some(include_bytes!("../../../assets/app-icon/hicolor/128x128/apps/ai.storyteller.deckcraft.png")),
     accent: Some([0xf0, 0x7a, 0x1e]),
     ..craft_update::suite::DECKCRAFT

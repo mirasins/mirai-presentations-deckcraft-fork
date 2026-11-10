@@ -15,7 +15,7 @@ The Mirai fork ships its own releases, separate from upstream `storytold/deckcra
 
 ## Update checks
 
-`crates/ui-egui/src/lib.rs` defines `UPDATE_APP` with the repository `mirasins/deckcraft`.
+`crates/ui-egui/src/lib.rs` defines `UPDATE_APP` with the repository `mirasins/mirai-presentations-deckcraft-fork`.
 The in-app updater and the self-update helper both use it, so update checks and downloads
 only ever look at the fork's GitHub releases — never at upstream's. `crates/engine/src/links.rs`
 (About, Backstage, MCP instructions) points at the fork too.
