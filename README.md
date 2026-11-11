@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="assets/app-icon/hicolor/256x256/apps/ai.storyteller.deckcraft.png" width="128" height="128" alt="DeckCraft icon: a presentation screen with a bar chart on an orange tile">
+  <img src="assets/app-icon/hicolor/256x256/apps/ai.storyteller.deckcraft.png" width="128" height="128" alt="Mirai Presentations icon: a rising chart on a screen, on a coral tile">
 </p>
 
 <h1 align="center">Mirai Presentations</h1>
