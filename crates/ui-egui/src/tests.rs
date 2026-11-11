@@ -2417,7 +2417,7 @@ fn overdue_visible_logic_does_not_reanchor_a_later_hidden_show() {
 #[cfg(not(target_arch = "wasm32"))]
 #[test]
 fn updates_come_from_the_fork_repository() {
-    assert_eq!(crate::UPDATE_APP.repo, "mirasins/deckcraft");
+    assert_eq!(crate::UPDATE_APP.repo, "mirasins/mirai-presentations-deckcraft-fork");
     assert_eq!(crate::UPDATE_APP.id, "deckcraft");
 }
 
