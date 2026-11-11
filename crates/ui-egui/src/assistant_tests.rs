@@ -203,9 +203,13 @@ fn a_deck_proposal_card_lists_readable_operations() {
 }
 
 /// Harness over the pane, with the instruction field focused and a draft written.
-fn composing_harness(mut app: SlideApp) -> egui_kittest::Harness<'static, SlideApp> {
+fn composing_harness(app: SlideApp) -> egui_kittest::Harness<'static, SlideApp> {
+    composing_harness_sized(app, egui::vec2(1100.0, 720.0))
+}
+
+fn composing_harness_sized(mut app: SlideApp, size: egui::Vec2) -> egui_kittest::Harness<'static, SlideApp> {
     app.run("ui.assistant", json!({"value": true})).unwrap();
-    let mut h = egui_kittest::Harness::builder().with_size(egui::vec2(1100.0, 720.0)).build_ui_state(
+    let mut h = egui_kittest::Harness::builder().with_size(size).build_ui_state(
         |ui, app: &mut SlideApp| {
             app.logic(ui.ctx());
             app.ui(ui);
@@ -306,6 +310,25 @@ fn the_send_button_reviews_and_cancel_withdraws_the_review() {
     h.run_steps(3);
     assert!(h.state().assistant.armed.is_some());
     h.get_by_label("Confirm and send");
+    h.get_by_label("Cancel").click();
+    h.run_steps(3);
+    assert!(h.state().assistant.armed.is_none());
+}
+
+/// On a short window the composer used to be pushed below the pane, so Cancel (and Send) sat
+/// under the status bar and a click on them did nothing; this failed on CI's layout at 720 px.
+#[test]
+fn the_review_buttons_stay_reachable_in_a_short_window() {
+    use egui_kittest::kittest::Queryable;
+    let size = egui::vec2(1100.0, 620.0);
+    let mut h = composing_harness_sized(app(), size);
+    h.get_by_label("Send").click();
+    h.run_steps(3);
+    assert!(h.state().assistant.armed.is_some());
+    for label in ["Confirm and send", "Cancel"] {
+        let rect = h.get_by_label(label).rect();
+        assert!(rect.max.y < size.y - 24.0, "{label} sits at {rect:?}, under the status bar");
+    }
     h.get_by_label("Cancel").click();
     h.run_steps(3);
     assert!(h.state().assistant.armed.is_none());
