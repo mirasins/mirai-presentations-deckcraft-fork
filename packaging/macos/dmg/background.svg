@@ -6,14 +6,14 @@
 </filter></defs>
 
 <rect width="660" height="400" fill="#efe9dc"/>
-<g clip-path="url(#panel)"><rect width="232" height="400" fill="#f26b1d"/><g transform="translate(-63.2,20.8) scale(0.7)"><image href="../../../assets/app-icon/deckcraft-1024.png" width="512" height="512"/></g></g>
+<g clip-path="url(#panel)"><rect width="232" height="400" fill="#d85c72"/><g transform="translate(-63.2,20.8) scale(0.7)"><image href="../../../assets/app-icon/hicolor/scalable/apps/ai.storyteller.deckcraft.svg" width="512" height="512"/></g></g>
 <line x1="232.5" y1="0" x2="232.5" y2="400" stroke="#0b0b0c" stroke-width="1.2"/>
 <line x1="236.5" y1="0" x2="236.5" y2="400" stroke="#0b0b0c" stroke-width="0.5"/>
 
 <line x1="267" y1="88.5" x2="624" y2="88.5" stroke="#0b0b0c" stroke-width="0.6"/>
-<path d="M271.5,81.5 L276,88.5 L271.5,95.5 L267,88.5 Z" fill="#f26b1d"/>
+<path d="M271.5,81.5 L276,88.5 L271.5,95.5 L267,88.5 Z" fill="#d85c72"/>
 
-<rect x="408" y="199.4" width="20" height="11.2" rx="1.5" fill="#efe9dc" stroke="#0b0b0c" stroke-width="1.2" stroke-opacity="0.4"/><rect x="434" y="198.2" width="24" height="13.5" rx="1.5" fill="#efe9dc" stroke="#0b0b0c" stroke-width="1.2" stroke-opacity="0.65"/><rect x="462" y="196.0" width="32" height="18.0" rx="1.5" fill="#efe9dc" stroke="#f26b1d" stroke-width="2" stroke-opacity="1"/>
+<rect x="408" y="199.4" width="20" height="11.2" rx="1.5" fill="#efe9dc" stroke="#0b0b0c" stroke-width="1.2" stroke-opacity="0.4"/><rect x="434" y="198.2" width="24" height="13.5" rx="1.5" fill="#efe9dc" stroke="#0b0b0c" stroke-width="1.2" stroke-opacity="0.65"/><rect x="462" y="196.0" width="32" height="18.0" rx="1.5" fill="#efe9dc" stroke="#d85c72" stroke-width="2" stroke-opacity="1"/>
 <line x1="267" y1="335.5" x2="624" y2="335.5" stroke="#0b0b0c" stroke-width="0.6"/>
 
 
