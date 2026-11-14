@@ -5,7 +5,7 @@ its author, source and licence. The policy is in [AGENTS.md](AGENTS.md) §1. `ca
 fails if a file under `assets/`, `docs/images/` or `docs/brand/` is missing from this table.
 
 DeckCraft contains **no Microsoft, Adobe, Avid or Autodesk iconography, images, fonts, themes,
-templates or other assets**. Its themes, colour schemes, layouts, preset-shape geometry, sample
+templates or other assets**. Its presentation themes, colour schemes, layouts, preset-shape geometry, sample
 deck and UI icons are original work of the DeckCraft contributors (drawn or generated in code).
 Icons placed from Insert › Icons are Lucide paths (ISC; Feather-derived icons MIT), not Microsoft
 artwork. The ribbon and menu icons stay original drawings.
@@ -14,6 +14,7 @@ artwork. The ribbon and menu icons stay original drawings.
 
 | Asset | Author | Source | Licence | Used for |
 |---|---|---|---|---|
+| Aura Dark UI palette in `crates/ui-egui/src/theme.rs` | Dalton Menezes | [Aura Theme, commit 20924aa0a43975420edd0e0b2f919e07a3eff9c9](https://github.com/daltonmenezes/aura-theme/tree/20924aa0a43975420edd0e0b2f919e07a3eff9c9); adapted using the Mirai Reader palette | MIT (see `NOTICE`) | Optional dark interface theme |
 | `assets/app-icon/deckcraft-1024.png`, `assets/app-icon/hicolor/*/apps/ai.storyteller.deckcraft.png` | The Mirai fork's owner | Mirai icon set supplied by the fork's owner (SVG and 1024 px PNG masters); smaller sizes scaled from the PNG by `packaging/icons.sh` | MIT OR Apache-2.0 | Mirai Presentations app icon |
 | `packaging/macos/dmg/background.svg` | @XusBadia | DeckCraft macOS DMG window background, original work for this repository (2026-10-08), derived from the DeckCraft app icon `assets/app-icon/hicolor/scalable/apps/ai.storyteller.deckcraft.svg` (referenced via `<image>`, not copied); text is outlined Inter / JetBrains Mono glyph paths | MIT OR Apache-2.0 (`LICENSE-MIT`, `LICENSE-APACHE`) | Finder window of the macOS DMG; `packaging/macos/dmg/generate.py` renders it to `background.tiff` |
 | `packaging/macos/dmg/background.tiff` | @XusBadia | Rendered from `packaging/macos/dmg/background.svg` by `packaging/macos/dmg/generate.py` | MIT OR Apache-2.0 (`LICENSE-MIT`, `LICENSE-APACHE`) | 1x + 2x HiDPI TIFF for the macOS DMG window; includes the app icon (see its row) and LittleCMS's built-in sRGB profile ("No copyright, use freely") |

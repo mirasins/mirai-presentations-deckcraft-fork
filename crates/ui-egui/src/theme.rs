@@ -11,12 +11,12 @@ pub enum Brightness {
     Dark,
 }
 
-/// The interface colour theme. `Default` follows [`Brightness`]; `Mirai` is a dark, violet theme
-/// of our own and ignores it.
+/// The interface colour theme. `Default` follows [`Brightness`]; the other themes are always dark.
 #[derive(Clone, Copy, Debug, Default, PartialEq, Eq, Serialize, Deserialize)]
 #[serde(rename_all = "camelCase")]
 pub enum ColorTheme {
     Mirai,
+    AuraDark,
     #[default]
     #[serde(other)]
     Default,
@@ -28,6 +28,7 @@ impl ColorTheme {
         match name {
             "default" => Some(Self::Default),
             "mirai" => Some(Self::Mirai),
+            "auraDark" => Some(Self::AuraDark),
             _ => None,
         }
     }
@@ -35,6 +36,14 @@ impl ColorTheme {
         match self {
             Self::Default => "default",
             Self::Mirai => "mirai",
+            Self::AuraDark => "auraDark",
+        }
+    }
+    pub fn label(self) -> &'static str {
+        match self {
+            Self::Default => "Default",
+            Self::Mirai => "Mirai Theme",
+            Self::AuraDark => "Aura Dark",
         }
     }
 }
@@ -179,6 +188,37 @@ impl Tokens {
             shadow: Color32::from_black_alpha(120),
         }
     }
+    /// Aura Dark, adapted from Dalton Menezes's MIT-licensed palette (see ATTRIBUTION.md).
+    pub fn aura_dark() -> Self {
+        let mut t = Self::mirai();
+        t.chrome = Color32::from_rgb(0x15, 0x14, 0x1B);
+        t.card = Color32::from_rgb(0x2E, 0x2B, 0x38);
+        t.card_border = Color32::from_rgb(0x3B, 0x33, 0x4B);
+        t.text_field = Color32::from_rgb(0x11, 0x0F, 0x18);
+        t.canvas = t.text_field;
+        t.text = Color32::from_rgb(0xED, 0xEC, 0xEE);
+        t.text_dim = Color32::from_rgb(0xCD, 0xCC, 0xCE);
+        t.text_faint = Color32::from_rgb(0xAD, 0xAC, 0xAE);
+        t.border = t.card_border;
+        t.separator = t.card_border;
+        t.hover = t.card_border;
+        t.pressed = Color32::from_rgb(0x46, 0x3C, 0x5C);
+        t.selected = Color32::from_rgb(0x29, 0x26, 0x3C);
+        t.accent = Color32::from_rgb(0x61, 0xFF, 0xCA);
+        t.accent_text = t.text_field;
+        t.contextual = t.accent;
+        t.selection = t.text_faint;
+        t.handle_fill = t.text;
+        t.handle_stroke = t.text_faint;
+        t.guide = t.accent;
+        t.caret = t.text;
+        t.text_selection = Color32::from_rgba_unmultiplied(0x61, 0xFF, 0xCA, 90);
+        t.field_bg = t.text_field;
+        t.control = t.hover;
+        t.control_hover = t.pressed;
+        t.control_pressed = Color32::from_rgb(0x52, 0x48, 0x69);
+        t
+    }
     pub fn for_brightness(b: Brightness) -> Self {
         match b {
             Brightness::Light => Self::light(),
@@ -190,6 +230,7 @@ impl Tokens {
         match theme {
             ColorTheme::Default => Self::for_brightness(b),
             ColorTheme::Mirai => Self::mirai(),
+            ColorTheme::AuraDark => Self::aura_dark(),
         }
     }
     /// The tokens last applied with [`apply`]; before that, the light or dark defaults.
@@ -606,7 +647,7 @@ mod tests {
 
     #[test]
     fn color_theme_names_round_trip_and_unknown_names_fall_back() {
-        for t in [ColorTheme::Default, ColorTheme::Mirai] {
+        for t in [ColorTheme::Default, ColorTheme::Mirai, ColorTheme::AuraDark] {
             assert_eq!(ColorTheme::from_name(t.name()), Some(t));
         }
         assert_eq!(ColorTheme::from_name("neon"), None);
@@ -614,5 +655,7 @@ mod tests {
         assert_eq!(parsed, ColorTheme::Default);
         assert_eq!(Tokens::for_settings(Brightness::Dark, ColorTheme::Default).chrome, Tokens::dark().chrome);
         assert_eq!(Tokens::for_settings(Brightness::Light, ColorTheme::Mirai).chrome, Tokens::mirai().chrome);
+        assert_eq!(Tokens::for_settings(Brightness::Light, ColorTheme::AuraDark).accent, Color32::from_rgb(0x61, 0xFF, 0xCA));
+        assert!(contrast(Tokens::aura_dark().accent_text, Tokens::aura_dark().accent) >= 4.5);
     }
 }
