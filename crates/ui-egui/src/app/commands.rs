@@ -161,7 +161,7 @@ impl SlideApp {
             }
             "view.theme" => {
                 let name = p.get("theme").and_then(Value::as_str).ok_or("missing `theme`")?;
-                self.ui.color_theme = theme::ColorTheme::from_name(name).ok_or("`theme` must be default or mirai")?;
+                self.ui.color_theme = theme::ColorTheme::from_name(name).ok_or("`theme` must be default, mirai or auraDark")?;
                 self.restyle = true;
             }
             "view.grayscale" => self.ui.grayscale = self.flag(p, self.ui.grayscale),

@@ -144,9 +144,9 @@ mod tests {
     #[test]
     fn the_colour_theme_is_saved_and_an_old_file_keeps_the_default() {
         let d = dir("theme");
-        let ui = UiState { color_theme: crate::theme::ColorTheme::Mirai, ..Default::default() };
+        let ui = UiState { color_theme: crate::theme::ColorTheme::AuraDark, ..Default::default() };
         save(&d, &ui, &Prefs::default());
-        assert_eq!(load(&d).0.map(|u| u.color_theme), Some(crate::theme::ColorTheme::Mirai));
+        assert_eq!(load(&d).0.map(|u| u.color_theme), Some(crate::theme::ColorTheme::AuraDark));
         std::fs::write(d.join(UI_FILE), r#"{"brightness": "dark"}"#).unwrap();
         let old = load(&d).0.expect("a file without the theme still loads");
         assert_eq!((old.brightness, old.color_theme), (crate::theme::Brightness::Dark, crate::theme::ColorTheme::Default));

@@ -246,9 +246,10 @@ pub(super) fn about(app: &mut SlideApp, ui: &mut Ui) {
             let mut picked = current;
             craft_ui::ComboBox::from_id_salt("backstage_color_theme")
                 .width(260.0)
-                .selected_text(if current == theme::ColorTheme::Mirai { "Mirai Theme" } else { "Default" })
+                .selected_text(current.label())
                 .show_ui(ui, |ui| {
-                    for (value, label) in [(theme::ColorTheme::Default, "Default"), (theme::ColorTheme::Mirai, "Mirai Theme")] {
+                    for value in [theme::ColorTheme::Default, theme::ColorTheme::Mirai, theme::ColorTheme::AuraDark] {
+                        let label = value.label();
                         ui.selectable_value(&mut picked, value, label);
                     }
                 })
@@ -257,7 +258,7 @@ pub(super) fn about(app: &mut SlideApp, ui: &mut Ui) {
             if picked != current {
                 let _ = app.run("view.theme", json!({"theme": picked.name()}));
             }
-            dim(ui, "Mirai Theme is always dark; the appearance setting applies to Default.");
+            dim(ui, "Mirai Theme and Aura Dark are always dark; the appearance setting applies to Default.");
         });
     });
 }

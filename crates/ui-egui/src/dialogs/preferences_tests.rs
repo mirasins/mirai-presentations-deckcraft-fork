@@ -116,7 +116,7 @@ fn options_cancel_puts_the_appearance_and_scale_back() {
     assert!(h.state().dialog.is_none(), "and the dialog closes");
 }
 
-/// Choosing Mirai Theme in Options applies it at once, and Cancel puts the previous theme back.
+/// Choosing Aura Dark in Options applies it at once, and Cancel puts the previous theme back.
 #[test]
 fn options_cancel_puts_the_colour_theme_back() {
     let mut h = harness();
@@ -126,14 +126,14 @@ fn options_cancel_puts_the_colour_theme_back() {
     assert_eq!(selector.value().as_deref(), Some("Default"));
     selector.click();
     h.run_steps(2);
-    h.get_by_label("Mirai Theme").click();
+    h.get_by_label("Aura Dark").click();
     h.run_steps(2);
-    assert_eq!(h.state().ui.color_theme, crate::theme::ColorTheme::Mirai, "the theme applies as it is chosen");
-    assert_eq!(crate::theme::Tokens::get(&h.ctx).accent, crate::theme::Tokens::mirai().accent, "the selected theme is applied to the UI");
+    assert_eq!(h.state().ui.color_theme, crate::theme::ColorTheme::AuraDark, "the theme applies as it is chosen");
+    assert_eq!(crate::theme::Tokens::get(&h.ctx).accent, crate::theme::Tokens::aura_dark().accent, "the selected theme is applied to the UI");
     h.query_by_label("Cancel").expect("the Cancel button is there").click();
     h.run_steps(2);
     assert_eq!(h.state().ui.color_theme, before, "Cancel restores the colour theme");
-    assert_ne!(crate::theme::Tokens::get(&h.ctx).accent, crate::theme::Tokens::mirai().accent, "restoring the choice restyles the UI");
+    assert_ne!(crate::theme::Tokens::get(&h.ctx).accent, crate::theme::Tokens::aura_dark().accent, "restoring the choice restyles the UI");
 }
 
 /// The window's close button is the same as Cancel: the settings go back.

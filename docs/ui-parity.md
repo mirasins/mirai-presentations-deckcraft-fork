@@ -64,7 +64,7 @@ menu colours taken from the theme tokens (menu `chrome`, page `card`).
 | Share | Cloud sharing | Not offered |
 | Export | Create PDF/XPS Document, Create a Video, Create an Animated GIF, Package Presentation for CD, Create Handouts, Change File Type | Create PDF Document, Create Handouts (a PDF), Change File Type (PNG with an optional transparent background, #784). No video, GIF or CD package |
 | Close | Closes; asks Save / Don't Save / Cancel about unsaved changes | Same (`file.close` after the prompt); Ctrl+W asks too |
-| Account | User information, sign-in, Office Background and Office Theme, product information, About | About: product information, project links, contributor/model credits and appearance (light/dark, `view.dark`; colour theme Default or Mirai Theme, `view.theme`, saved in `ui.json`; Mirai Theme is always dark). No accounts to sign in to |
+| Account | User information, sign-in, Office Background and Office Theme, product information, About | About: product information, project links, contributor/model credits and appearance (light/dark, `view.dark`; colour theme Default, Mirai Theme or Aura Dark, `view.theme`, saved in `ui.json`; Mirai Theme and Aura Dark are always dark). No accounts to sign in to |
 | Options | Opens the PowerPoint Options dialog | Opens Preferences |
 
 ## Panes and dialogs
