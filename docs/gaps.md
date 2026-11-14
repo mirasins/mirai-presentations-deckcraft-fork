@@ -1,5 +1,7 @@
 # Where DeckCraft falls short of PowerPoint
 
+> **Last updated:** 2026-11-14 · **Change:** trivial (Mirai sync: merged upstream b0c77ebd; fork branding, assistant and themes retained; estimates unchanged.)
+
 > **Last reviewed:** 2026-10-30 · **Last updated:** 2026-11-04 · **Change:** trivial (workflow-breaking regression fixed: Ctrl+C/X/V use the system clipboard again; #1414 to re-test on Windows; previous: trivial, run alternate language and reflection transforms survive saves; reused slide contents scale to the destination, picker thumbnails remain a gap; previous: trivial (locked No Fill and no-outline click-through regression coverage added; No Fill hit-testing follows resolved fill instead of the presence of a style (#1621); scores unchanged)) · **Target:** Microsoft PowerPoint for Mac 16.113 (Microsoft 365)
 
 > **Mirai fork:** 2026-11-06 · upstream/main `159ed07e` integrated; the fork keeps the Mirai assistant (selected and current-slide text proposals; broader design, translation and deck generation remain open). Readiness estimates unchanged.
@@ -378,6 +380,7 @@ Detail in [localization-parity.md](localization-parity.md).
 
 | Date | Change | Summary |
 |---|---|---|
+| 2026-11-14 | trivial | Mirai sync: merged upstream b0c77ebd; fork branding, assistant and themes retained; estimates unchanged. |
 | 2026-11-02 | trivial | Run alternate-language metadata now survives native and PPTX saves; UI and proofing gaps remain; scores unchanged |
 | 2026-11-02 | trivial | PPTX reflection geometry is retained through native and PPTX resaves; no rendering parity claim |
 | 2026-11-02 | trivial | Reused slide geometry and content scale to the destination; picker thumbnails remain the reuse gap |

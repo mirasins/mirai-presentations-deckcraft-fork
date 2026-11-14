@@ -1,5 +1,7 @@
 # DeckCraft roadmap
 
+> **Last updated:** 2026-11-14 · **Change:** trivial (Mirai sync: merged upstream b0c77ebd; fork branding, assistant and themes retained; estimates unchanged.)
+
 **Stage: alpha** · next: beta, ~20 points and ~120–210 h away
 
 > **Last reviewed:** 2026-11-04 · **Last updated:** 2026-11-11 · **Change:** trivial (slide-list entries with missing relationships are reported as lost slides and open as repaired copies; the Opus decoder and the Ogg, MP4 and Matroska demuxers come from craft-libs; parity scores unchanged) · **Target:** Microsoft PowerPoint for Mac 16.113 (Microsoft 365)
@@ -153,6 +155,8 @@ window, `render`, `convert`), from MCP (`deckcraft-cli mcp`, optionally `--conne
 app's JSON control channel (`deckcraft --control PORT`).
 
 ## Progress log
+
+- 2026-11-14: Mirai sync: merged upstream b0c77ebd; fork branding, assistant and themes retained; estimates unchanged.
 
 - 2026-10-30: Mirai geometry and fills, first engine step: `assistant.geometryContext` lists unlocked text-free autoshapes with their own indices, and `assistant.applyDeck` accepts `set_shape_bounds`, `set_shape_fill` and `add_shape`, all validated before any change and undoable in one step. The model protocol, prompt, schema and pane offer them for slide-scope requests; lines, arcs and connector presets are included (their colour is the stroke's, and their box may be flat), presets outside the gallery are neither listed nor added, and a slide whose geometry can't be read still gets its text edits. Compiled, linted and tested.
 - 2026-10-30: Fixed Mirai add_text styles with unset fields: the app sends them as explicit nulls, which the engine refused; nulls now count as unset and a regression test covers it.
@@ -353,6 +357,7 @@ app's JSON control channel (`deckcraft --control PORT`).
 
 | Date | Change | Summary |
 |---|---|---|
+| 2026-11-14 | trivial | Mirai sync: merged upstream b0c77ebd; fork branding, assistant and themes retained; estimates unchanged. |
 | 2026-11-11 | trivial | Opus and container code moved to craft-libs crates; parity scores unchanged |
 | 2026-11-04 | trivial | Ogg Opus recovery duration includes its recovered tail; parity scores unchanged |
 | 2026-11-02 | trivial | Progress log: run alternate-language metadata round-trips through native and PPTX formats; product parity scores unchanged |
