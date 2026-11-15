@@ -1074,7 +1074,7 @@ checksum = "be1e0bca6c3637f992fc1cc7cbc52a78c1ef6db076dbf1059c4323d6a2048376"
 
 [[package]]
 name = "deckcraft"
-version = "0.18.1-mirai.1"
+version = "0.19.0-mirai.1"
 dependencies = [
  "arboard",
  "chrono",
@@ -1096,7 +1096,7 @@ dependencies = [
 
 [[package]]
 name = "deckcraft-anim"
-version = "0.18.1-mirai.1"
+version = "0.19.0-mirai.1"
 dependencies = [
  "deckcraft-geom",
  "deckcraft-model",
@@ -1105,7 +1105,7 @@ dependencies = [
 
 [[package]]
 name = "deckcraft-assistant"
-version = "0.18.1-mirai.1"
+version = "0.19.0-mirai.1"
 dependencies = [
  "serde",
  "serde_json",
@@ -1114,7 +1114,7 @@ dependencies = [
 
 [[package]]
 name = "deckcraft-cli"
-version = "0.18.1-mirai.1"
+version = "0.19.0-mirai.1"
 dependencies = [
  "deckcraft-engine",
  "deckcraft-mcp",
@@ -1124,14 +1124,14 @@ dependencies = [
 
 [[package]]
 name = "deckcraft-color"
-version = "0.18.1-mirai.1"
+version = "0.19.0-mirai.1"
 dependencies = [
  "serde",
 ]
 
 [[package]]
 name = "deckcraft-engine"
-version = "0.18.1-mirai.1"
+version = "0.19.0-mirai.1"
 dependencies = [
  "chrono",
  "deckcraft-anim",
@@ -1157,7 +1157,7 @@ dependencies = [
 
 [[package]]
 name = "deckcraft-fonts"
-version = "0.18.1-mirai.1"
+version = "0.19.0-mirai.1"
 dependencies = [
  "epaint_default_fonts",
  "harfrust 0.13.3",
@@ -1169,7 +1169,7 @@ dependencies = [
 
 [[package]]
 name = "deckcraft-format"
-version = "0.18.1-mirai.1"
+version = "0.19.0-mirai.1"
 dependencies = [
  "deckcraft-model",
  "serde",
@@ -1180,7 +1180,7 @@ dependencies = [
 
 [[package]]
 name = "deckcraft-geom"
-version = "0.18.1-mirai.1"
+version = "0.19.0-mirai.1"
 dependencies = [
  "kurbo 0.13.1",
  "serde",
@@ -1188,7 +1188,7 @@ dependencies = [
 
 [[package]]
 name = "deckcraft-mcp"
-version = "0.18.1-mirai.1"
+version = "0.19.0-mirai.1"
 dependencies = [
  "deckcraft-engine",
  "deckcraft-render",
@@ -1198,7 +1198,7 @@ dependencies = [
 
 [[package]]
 name = "deckcraft-media"
-version = "0.18.1-mirai.1"
+version = "0.19.0-mirai.1"
 dependencies = [
  "craft-audio",
  "craft-media",
@@ -1211,7 +1211,7 @@ dependencies = [
 
 [[package]]
 name = "deckcraft-model"
-version = "0.18.1-mirai.1"
+version = "0.19.0-mirai.1"
 dependencies = [
  "deckcraft-color",
  "deckcraft-geom",
@@ -1223,7 +1223,7 @@ dependencies = [
 
 [[package]]
 name = "deckcraft-pdf"
-version = "0.18.1-mirai.1"
+version = "0.19.0-mirai.1"
 dependencies = [
  "craft-pdf",
  "deckcraft-fonts",
@@ -1241,7 +1241,7 @@ dependencies = [
 
 [[package]]
 name = "deckcraft-pptx"
-version = "0.18.1-mirai.1"
+version = "0.19.0-mirai.1"
 dependencies = [
  "deckcraft-color",
  "deckcraft-engine",
@@ -1257,7 +1257,7 @@ dependencies = [
 
 [[package]]
 name = "deckcraft-render"
-version = "0.18.1-mirai.1"
+version = "0.19.0-mirai.1"
 dependencies = [
  "craft-metafile",
  "deckcraft-anim",
@@ -1276,7 +1276,7 @@ dependencies = [
 
 [[package]]
 name = "deckcraft-text"
-version = "0.18.1-mirai.1"
+version = "0.19.0-mirai.1"
 dependencies = [
  "chrono",
  "deckcraft-color",
@@ -1290,7 +1290,7 @@ dependencies = [
 
 [[package]]
 name = "deckcraft-ui-egui"
-version = "0.18.1-mirai.1"
+version = "0.19.0-mirai.1"
 dependencies = [
  "craft-ui",
  "craft-update",
@@ -1317,7 +1317,7 @@ dependencies = [
 
 [[package]]
 name = "deckcraft-web"
-version = "0.18.1-mirai.1"
+version = "0.19.0-mirai.1"
 dependencies = [
  "craft-web-api",
  "craft-web-host",
@@ -6454,7 +6454,7 @@ checksum = "9440ea3e5aeabb0ac63af70daf835274065238cdd0cec83418f417eae38bacee"
 
 [[package]]
 name = "xtask"
-version = "0.18.1-mirai.1"
+version = "0.19.0-mirai.1"
 dependencies = [
  "serde_json",
 ]
