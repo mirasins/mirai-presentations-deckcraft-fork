@@ -9,7 +9,8 @@
 //! - a shape with a link and a triggered animation follows the link at once. The animation's clock
 //!   runs only while its slide is shown, so it goes on where it stopped when the show returns;
 //! - with "advance on click" off a click never leaves the slide, but it still plays animation steps;
-//! - a slide the show returns to (link or arrow keys) looks as it was left.
+//! - a slide the show returns to by a link or by going back looks as it was left; going forward
+//!   to a slide starts it over (#2090).
 
 use deckcraft_model::text::Action;
 use deckcraft_model::{Presentation, ShapeId};
@@ -174,7 +175,7 @@ impl ShowState {
         };
         (0..shapes.len())
             .rev()
-            .find(|&i| shapes.get(i).is_some_and(|h| h.under_pointer && !(h.is_group && !self.interactive(pres, tl, h)) && shown(i)))
+            .find(|&i| shapes.get(i).is_some_and(|h| (self.interactive(pres, tl, h) || !h.is_group) && shown(i) && h.under_pointer))
     }
 
     fn interactive(&self, pres: &Presentation, tl: &Timeline, h: &HitShape) -> bool {
