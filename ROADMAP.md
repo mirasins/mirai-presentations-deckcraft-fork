@@ -158,6 +158,7 @@ app's JSON control channel (`deckcraft --control PORT`).
 
 ## Progress log
 
+- 2026-11-17: Mirai sync: merged upstream e0f7fc8c (10 commits); fork branding, assistant and themes retained; estimates unchanged.
 - 2026-11-17: Mirai sync: merged upstream 1ec01a09; fork branding, assistant and themes retained; estimates unchanged.
 
 - 2026-11-14: Mirai sync: merged upstream b0c77ebd; fork branding, assistant and themes retained; estimates unchanged.
