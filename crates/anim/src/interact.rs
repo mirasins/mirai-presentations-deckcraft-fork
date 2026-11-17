@@ -175,7 +175,7 @@ impl ShowState {
         };
         (0..shapes.len())
             .rev()
-            .find(|&i| shapes.get(i).is_some_and(|h| h.under_pointer && !(h.is_group && !self.interactive(pres, tl, h)) && shown(i)))
+            .find(|&i| shapes.get(i).is_some_and(|h| (self.interactive(pres, tl, h) || !h.is_group) && shown(i) && h.under_pointer))
     }
 
     fn interactive(&self, pres: &Presentation, tl: &Timeline, h: &HitShape) -> bool {
