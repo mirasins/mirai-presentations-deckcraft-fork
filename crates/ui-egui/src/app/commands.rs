@@ -291,8 +291,8 @@ impl SlideApp {
                 self.dialog = Some(dialogs::Dialog::new(d));
             }
             "app.links" => {
-                use deckcraft_engine::links::{APP_PAGE, APPS, DISCORD, GITHUB, WEBSITE};
-                return Ok(json!({"discord": DISCORD, "website": WEBSITE, "apps": APPS, "appPage": APP_PAGE, "github": GITHUB}));
+                use deckcraft_engine::links::{COMMUNITY, GITHUB, ISSUES, UPSTREAM, UPSTREAM_PAGE};
+                return Ok(json!({"community": COMMUNITY, "issues": ISSUES, "github": GITHUB, "upstream": UPSTREAM, "upstreamPage": UPSTREAM_PAGE}));
             }
             _ => return Err(format!("unknown UI command `{id}`")),
         }

@@ -25,11 +25,12 @@ pub fn about(_app: &mut SlideApp, ui: &mut Ui) {
         ui.add_space(6.0);
         ui.label("Presentations and slide shows, rebuilt from scratch in pure Rust.");
         ui.label("An open-source, clean-room project. Not affiliated with Microsoft.");
-        ui.label("The Mirai fork of DeckCraft.");
+        ui.label("The Mirai fork of DeckCraft, an independent project.");
         ui.add_space(6.0);
-        ui.hyperlink_to("Join our community on Discord", deckcraft_engine::links::DISCORD);
-        ui.hyperlink_to("getartcraft.com/apps/deckcraft", deckcraft_engine::links::APP_PAGE);
+        ui.hyperlink_to("Join the Mirai community", deckcraft_engine::links::COMMUNITY);
+        ui.hyperlink_to("Report an issue", deckcraft_engine::links::ISSUES);
         ui.hyperlink_to("Source on GitHub", deckcraft_engine::links::GITHUB);
+        ui.hyperlink_to("Based on DeckCraft by Storytold, part of the ArtCraft project", deckcraft_engine::links::UPSTREAM);
         ui.add_space(6.0);
         ui.label(egui::RichText::new("MIT OR Apache-2.0 · © 2026 ArtCraft Team and the DeckCraft contributors").size(11.0).color(t.text_faint));
     });

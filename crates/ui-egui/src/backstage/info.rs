@@ -226,8 +226,10 @@ pub(super) fn about(app: &mut SlideApp, ui: &mut Ui) {
             if task(ui, Icon::Help, "Credits", "Credits", "The people and models who built DeckCraft and Mirai Presentations.", true) {
                 let _ = app.run("app.about", json!({}));
             }
-            ui.hyperlink_to("Join our community on Discord", deckcraft_engine::links::DISCORD);
+            ui.hyperlink_to("Join the Mirai community", deckcraft_engine::links::COMMUNITY);
+            ui.hyperlink_to("Report an issue", deckcraft_engine::links::ISSUES);
             ui.hyperlink_to("Source on GitHub", deckcraft_engine::links::GITHUB);
+            ui.hyperlink_to("Based on DeckCraft by Storytold, part of the ArtCraft project", deckcraft_engine::links::UPSTREAM);
         });
         ui.add_space(40.0);
         ui.vertical(|ui| {
