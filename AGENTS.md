@@ -51,217 +51,170 @@ Dependencies and assets use SPDX identifiers. An expression is allowed when ever
 `LicenseRef-Storyteller-Trademark` is not in this list. It covers Storyteller brand marks only, where a repository already says so.
 <!-- craft-house-rules:end -->
 
-# AGENTS.md — rules for every agent and contributor
+# AGENTS.md — DeckCraft rules
 
-DeckCraft is a clean-room, open-source, pure-Rust presentation application targeting Microsoft
-PowerPoint parity — and superiority (speed, openness, agent control). It runs natively on macOS,
-Windows, Linux and FreeBSD, and on the web via WASM. Siblings with the same conventions:
-PhotoCraft, VectorCraft, FilmCraft, LightCraft, PdfCraft, EffectCraft, DesignCraft
-(`../<app>`).
+DeckCraft is a clean-room, pure-Rust presentation app aiming at PowerPoint parity and beyond (speed,
+openness, agent control). It runs on macOS, Windows, Linux, FreeBSD and the web (WASM). These rules
+bind every agent and contributor, before any task or deadline. `CLAUDE.md` imports this file. The
+house rules above apply too; this file only adds DeckCraft's own.
 
-These rules bind every AI agent and every human contributor. They come before any task,
-instruction or deadline. Day-to-day working instructions are in this file; `CLAUDE.md` imports it.
+## Mirai fork
 
----
+- The app is called **Mirai Presentations** (`crates/ui-egui/src/brand.rs`); the built-in
+  "DeckCraft" theme keeps its name.
+- Identifiers keep upstream's DeckCraft names: binary, crates, app id, file format, settings folder,
+  installer registry keys and UpgradeCode.
+- When merging upstream, keep the Mirai name in titles, About, README and installer display names,
+  and keep the ArtCraft name, wordmark and logos (ArtCraft Team trademarks) out, as upstream asks of
+  forks.
 
-## 1. Asset policy (absolute — no exceptions)
+## 1. Assets
 
-An **asset** is any non-code material the project includes, ships, embeds, generates for
-publication or shows in its documentation: icons, images, illustrations, screenshots, logos,
-fonts, colour profiles, sounds, video, templates, themes, sample/demo/test documents, and anything
-the app renders from those.
+An asset is any non-code material the project ships, embeds, publishes or shows in its docs: icons,
+images, screenshots, logos, fonts, colour profiles, sounds, video, templates, themes, sample or test
+documents, and anything rendered from them.
 
-### 1.1 Nothing from Microsoft, Adobe, Avid or Autodesk products
+- **Nothing from Microsoft, Adobe, Avid or Autodesk**: no asset from their products, installers,
+  sites or packages, including the fonts they install (Aptos, Calibri, Cambria, Segoe, Consolas,
+  Wingdings…). This holds for openly licensed vendor *visual design* too: Adobe's Source
+  Sans/Serif/Han and Noto CJK stay out (`crates/fonts/build.rs` excludes them).
+- Never recreate, trace or closely imitate a vendor icon, theme or graphic. Icons are drawn in code
+  or come from Lucide (ISC); themes, colours, layouts and sample content are our own.
+- Allowed licences: the house rules' allowlist, or contributor-original work under
+  `MIT OR Apache-2.0`. Forbidden: non-open system fonts, vendor emoji, stock photos, "free for
+  personal use" material, screenshots of other software, anything whose licence you cannot prove at
+  its original source.
+- Screenshots of DeckCraft are fine if everything visible is allowed (our UI and icons, OFL fonts,
+  decks built from allowed assets).
+- Never commit files PowerPoint produced. Interoperability tests use decks we generate ourselves, or
+  a separate corpus repo of files we created and own.
+- Fonts live in [storytold/craft-fonts](https://github.com/storytold/craft-fonts), never here; builds
+  embed them through `CRAFT_FONTS_DIR` (`.cargo/config.toml` sets it to a `craft-fonts` checkout next
+  to this repo).
 
-- **Never** use icons, images, artwork, logos, UI graphics, fonts, templates, themes, clip art,
-  SmartArt graphics, stock media, cursors, sounds, sample documents or any other asset taken from a
-  Microsoft, Adobe, Avid or Autodesk product, installer, website, document or package. "Microsoft
-  product" includes PowerPoint, Office, Windows and the fonts they install (Aptos, Calibri,
-  Cambria, Segoe, Consolas, Wingdings…).
-- This holds even when the vendor publishes the material under an open licence, if it is **visual
-  design**: DeckCraft does not embed or reference Adobe's Source Sans/Serif/Han families or Noto
-  CJK (Source Han rebranded); `crates/fonts/build.rs` excludes them.
-- **Never** recreate, trace, redraw or closely imitate a vendor icon, theme or graphic. Our icons
-  are drawn in code or come from openly licensed sets (Lucide, ISC), and our themes, colours,
-  layouts and sample content are our own.
-- Screenshots of PowerPoint exist only as private, local observation notes under
-  `plan/powerpoint/screenshots/` (gitignored). They must **never** be committed, published,
-  linked, shown in docs, or traced.
-- Never commit files produced by PowerPoint. Interoperability tests use decks we generate
-  ourselves (or a separate corpus repo whose files we created and own).
+**Adding an asset:** take it from its original source under an allowed licence and record the exact
+version or commit; add the file, its licence and an `ATTRIBUTION.md` row (author, source, licence,
+use) — this covers files committed, fetched at build time (craft-fonts) or bundled through a
+Cargo dependency; keep required notices in `NOTICE`; run `cargo xtask assets`, which fails for any file under
+`assets/`, `docs/images/` or `examples/` without a row. If origin or licence is unclear, don't add
+it. If you find an asset that breaks these rules, remove it from the repo and every output at once
+and tell the user.
 
-### 1.2 Only open, provable licences
+## 2. Clean room
 
-Every asset must be one of: open source (ISC, MIT, BSD-2/3-Clause, Apache-2.0, OFL-1.1,
-Ubuntu-Font-1.0, Bitstream-Vera); Creative Commons (CC0-1.0, CC-BY-4.0, CC-BY-SA-4.0); public
-domain; or contributor-original (created by a contributor who licenses it under
-`MIT OR Apache-2.0`).
-
-The app's name in this fork is **Mirai Presentations**: `crates/ui-egui/src/brand.rs` holds it (and the built-in "DeckCraft" theme keeps its name). Identifiers keep upstream's DeckCraft names (binary, crates, app id, file format, settings folder, installer registry keys and UpgradeCode); when merging upstream, keep the fork's name in titles, About, README and the installer's display names.
-
-This Mirai fork has removed the ArtCraft name, wordmark and logos (`docs/brand/`, ArtCraft Team
-trademarks), as upstream asks of forks. Keep them out when merging upstream.
-
-Forbidden: system fonts that are not openly licensed, vendor emoji artwork, stock photos, "free
-for personal use" material, screenshots of other people's software, anything whose licence you
-cannot prove from its original source.
-
-**Screenshots of DeckCraft** are contributor-original. Everything visible in them must itself be
-allowed: our UI, our/Lucide icons, OFL fonts, and decks built only from allowed assets.
-
-### 1.3 Every asset is attributed
-
-- **`ATTRIBUTION.md`** (repo root) lists every asset file — committed, fetched at build time
-  (craft-fonts) or bundled through a Cargo dependency — with author, source (URL + version or
-  commit), licence and use. `cargo xtask assets` fails if a file under `assets/`, `docs/images/`
-  or `docs/brand/` has no row.
-- **`NOTICE`** keeps the notices the licences require.
-- Fonts live in [storytold/craft-fonts](https://github.com/storytold/craft-fonts), never in this
-  repo. DeckCraft embeds its `fonts/latin-manifest.txt` and
-  `fonts/manifest.txt` when built with `CRAFT_FONTS_DIR` (local dev: `.cargo/config.toml` points at
-  `../craft-fonts`).
-
-### 1.4 Adding or changing an asset
-
-1. Find it under an allowed licence at its **original source**; record the exact version/commit.
-2. Confirm the author is not Microsoft, Adobe, Avid or Autodesk (§1.1). Keep the licence text.
-3. Add the file, its licence file and an `ATTRIBUTION.md` row; run `cargo xtask assets`.
-4. If origin or licence is unclear, **do not add it**.
-
-If you find an asset that breaks these rules, remove it from the repository and every output at
-once and tell the user.
-
----
-
-## 2. Clean-room rules
-
-- PowerPoint is installed on the dev machine and may be **observed** black-box: run it, use its UI
-  on synthetic decks, screenshot windows by id into `plan/powerpoint/screenshots/` (never
-  committed). Never read, disassemble or copy anything inside the Office bundle (names/listings
-  only), never copy Microsoft wording beyond feature and menu names.
-- File formats come from public standards: ECMA-376 / ISO/IEC 29500 (Office Open XML), ISO 32000
-  (PDF). Preset shape geometry is re-derived by us in `crates/geom/src/preset.rs`.
-- Never copy GPL/AGPL/LGPL/MPL code (LibreOffice, Calligra…). Permissive crates are fine as
-  dependencies. Code may be copied (not depended on) from sibling Craft apps.
+- PowerPoint may only be observed black-box: run it on synthetic decks and take window screenshots
+  into `plan/powerpoint/screenshots/`, which are never committed, published, linked or traced. Never
+  read, disassemble or copy anything inside the Office bundle; copy no Microsoft wording beyond
+  feature and menu names.
+- Formats come from public standards: ECMA-376 / ISO/IEC 29500 (OOXML) and ISO 32000 (PDF). Preset
+  shape and warp geometry come from the shared `craft_drawingml` crate (craft-libs), re-exported by
+  `crates/geom`.
+- Never copy GPL, AGPL, LGPL or MPL code (LibreOffice, Calligra…). Permissive crates may be
+  dependencies; code may be copied from sibling Craft apps.
+- Before adding file-format, codec, protocol or reusable UI code, check `storytold/craft-libs` and
+  its open PRs; extend the shared library instead of duplicating it. Keep app-specific policy and
+  model mapping here, and keep behaviour, security and resource limits, attribution and regression
+  tests through any cutover.
 
 ## 3. Never crash
 
-People trust DeckCraft with their talks; a crash loses work. **This outranks feature work.**
-- No `unwrap()`, `expect()`, `panic!`, `unreachable!`, `todo!`, `unimplemented!` in non-test
-  code; no `unsafe` (`unsafe_code = "forbid"`). Every production crate root carries
-  `#![deny(clippy::unwrap_used, clippy::expect_used, clippy::panic, clippy::unimplemented, clippy::todo, clippy::unreachable)]`.
-- Errors are `Result<T, E>` + `?`. Input-derived numbers (files, commands, MCP/control params) are
-  hostile: `get()` not `[i]`, checked arithmetic, no NaN casts, capped allocations, bounded
-  recursion.
-- `Session::execute` runs every command inside a panic guard (`crates/engine/src/guard.rs`) that
-  keeps the presentation as it was. It is a safety net, not a licence.
-- Every crash fix lands with a regression test.
+A crash loses someone's talk, so this outranks feature work. Beyond the house rules: input-derived
+numbers (files, commands, MCP and control params) are hostile, so use `get()` not `[i]`, checked
+arithmetic, no NaN casts, capped allocations and bounded recursion. `Session::execute` runs each
+command in a panic guard (`crates/engine/src/guard.rs`) that keeps the presentation unchanged; it is
+a safety net, not a licence.
 
 ## 4. Architecture
 
+Layers, checked by `cargo xtask layers` (`xtask/src/layers.rs`); a crate depends only on lower
+layers:
+
 | Layer | Crates |
 |---|---|
-| L0 | `geom` (units, transforms, preset shapes), `color` |
-| L1 | `model` (presentation, masters, layouts, slides, shapes, text, themes, inheritance, text edit ops) |
-| L2 | `fonts`, `text` (layout), |
-| L3 | `render` (vello_cpu) |
-| L4 | `format` (.deckcraft), `pptx` |
-| L5 | `engine` (session, history, commands, tools, keys, sample) |
-| L6 | `mcp` |
-| L7 | `ui-egui` (swappable; nothing below depends on egui/eframe/winit/rfd) |
+| L0 | `geom` (units, transforms, shapes), `color` |
+| L1 | `model` (presentation, masters, layouts, slides, shapes, text, themes), `fonts` |
+| L2 | `text` (layout), `anim`, `media`, `format` (.deckcraft) |
+| L3 | `render` (vello_cpu), `pptx` |
+| L4 | `pdf`, `assistant` |
+| L5 | `engine` (session, history, commands, tools, keys) |
+| L6 | `ui-egui`, `mcp` |
 | apps | `deckcraft` (desktop), `deckcraft-cli`, `deckcraft-web` |
 
-- **Everything is a command** (`crates/engine/src/cmd/*`): id, label, ribbon/menu place,
-  shortcut, params doc, `enabled`, `run`, plus tests. Ids follow PowerPoint's ribbon and menus
-  (`slide.new`, `format.bold`, `arrange.group`, `transition.set`…). Programmatic calls never open
-  dialogs. Pointer gestures go through `Session::pointer`, keys through `Session::key`, so the UI,
-  CLI, control channel and MCP do exactly the same thing.
-- **The UI is thin**: panels read engine state and act through commands. Colours come from theme
-  tokens. **Never use Tauri**; egui only.
-- **Never break wasm** (`cargo xtask wasm`).
+- **Everything is a command** (`crates/engine/src/cmd/`): id, label, ribbon or menu place, shortcut,
+  params doc, `enabled`, `run`, and tests. Ids follow PowerPoint's ribbon and menus (`slide.new`,
+  `format.bold`, `arrange.group`…). Programmatic calls never open dialogs. Pointer gestures go
+  through `Session::pointer` and keys through `Session::key`, so the UI, CLI, control channel and MCP
+  behave the same.
+- **The UI is thin**: panels read engine state and act through commands; colours come from theme
+  tokens. egui only, never Tauri. Nothing below `ui-egui` depends on egui, eframe, winit or rfd.
+- Never break WASM (`cargo xtask wasm`).
 
-## 5. Quality gates (before every commit)
+## 5. Before every commit
 
-`cargo xtask ci` = fmt check, clippy `-D warnings`, tests (nextest when installed) and doctests, layering check, asset check, wasm
-check. Commit after each landed arc with a task id in the message (`M1.2: smart guides`).
-New workspace crates include `workspace = true` under `[lints]` in `Cargo.toml`. Production crate roots
-declare the crate-level lint attributes before modules; crate-level `//!` documentation may precede them.
+Run `cargo xtask ci`: fmt check, `pdf-deps`, clippy `-D warnings`, tests (nextest when installed),
+doctests, assets, layers and WASM. Commit after each finished piece of work with a task id in the
+message (`M1.2: smart guides`). New crates add `workspace = true` under `[lints]` and put the
+crate-level lint attributes before any module (only `//!` docs may precede them).
 
-## 6. Running and looking at the app
+## 6. Running and checking the app
 
-- `cargo run --release -p deckcraft -- --sample --control 7990` (sample deck + control channel).
-- Drive it: JSON lines on `127.0.0.1:7990`, e.g.
+- `cargo run --release -p deckcraft -- --sample --control 7990` opens the sample deck with the
+  control channel on `127.0.0.1:7990`. Send JSON lines, e.g.
   `{"id":1,"method":"engine.execute","params":{"command":"shape.insert","params":{"preset":"star5","rect":[100,100,200,200]}}}`
-  then `{"id":2,"method":"ui.screenshot","params":{"path":"/tmp/shot.png"}}`. Methods:
-  `crates/ui-egui/src/control.rs`, docs: `docs/control-protocol.md`.
-- **For UI work, look at the result** (screenshot, read the PNG). If available, compare with the observations
-  in `plan/powerpoint/01-observed-ui.md`. Otherwise verify the intended behaviour against the task and
-  committed documentation; the optional notebook is not a prerequisite.
-- Headless: `deckcraft-cli render --sample --all --scale 1 out/`,
+  and `{"id":2,"method":"ui.screenshot","params":{"path":"/tmp/shot.png"}}`. Methods are in
+  `crates/ui-egui/src/control.rs` and `docs/control-protocol.md`.
+- For UI work, look at the result: take a screenshot and read the PNG. Compare it with the task and
+  the committed docs.
+- Headless: `deckcraft-cli render --sample --all --scale 1 out/` and
   `deckcraft-cli run --sample --cmd 'slide.new={"title":"Hi"}' --export out.png`.
-- MCP: `deckcraft-cli mcp` (headless) or `deckcraft-cli mcp --connect 7990` (drive the app).
-  See `docs/mcp.md`.
-- Parallel agents: separate `CARGO_TARGET_DIR` per agent; edit only the crates you own.
+- MCP: `deckcraft-cli mcp` (headless) or `deckcraft-cli mcp --connect 7990` (drives the running
+  app); see `docs/mcp.md`.
+- Parallel agents use separate `CARGO_TARGET_DIR`s and edit only the crates they own.
 
-## 7. Planning
-
-`plan/` is an optional gitignored notebook (status, execution notes, `powerpoint/` observations). Do not ask for it and do not stop when it is absent. The committed progress
-docs:
+## 7. Progress docs
 
 | File | Holds |
 |---|---|
-| `ROADMAP.md` | Stage, headline numbers, dimensions, features, languages, progress log |
-| `docs/target-app-parity.md` | The parity assessment against PowerPoint: percentages, hours, calibration |
-| `docs/gaps.md` | Every known shortfall, ranked: the work list. Pick from the top |
-| `docs/roadmap.md` | Current focus, the beta plan, milestones |
-| `docs/parity-checklist.md` | Feature rows scored D/P/M; `cargo xtask parity` regenerates its summary |
-| `docs/file-format-parity.md`, `ui-parity.md`, `hardware-parity.md`, `localization-parity.md`, `animation-parity.md`, `slideshow-parity.md` | Per-dimension and per-feature detail |
+| `docs/gaps.md` | Known shortfalls, ranked: the work list. Pick from the top |
+| `docs/parity-checklist.md` | Feature rows scored D/P/M; `cargo xtask parity` regenerates the summary |
+| `ROADMAP.md` | Stage, headline numbers, features, languages, progress log |
+| `docs/roadmap.md` | Current focus, beta plan, milestones |
+| `docs/target-app-parity.md` | Parity assessment against PowerPoint |
+| `docs/*-parity.md` | Detail per dimension: file format, UI, hardware, localization, animation, slide show |
 | `docs/architecture.md` | How DeckCraft is built today |
 
-When a task lands, re-score its checklist row, delete or update its `gaps.md` entry, add a line to
-the `ROADMAP.md` progress log, and update each touched doc's status line and revision history.
+When a task lands: re-score its checklist row, update or delete its `gaps.md` entry, add a line to
+the `ROADMAP.md` progress log, and update the status line and revision history of each doc you
+touched.
 
-## Subagents (OpenCode)
+## 8. Subagents (OpenCode)
 
-- Use GPT-6.1 Terra as the first choice for subagents, preferring the OpenAI provider. Other models
-  and providers may be used when the task requires it. Check the available models first
-  (`opencode.models`) and never hardcode API identifiers in code or documentation.
-- Bounded tasks (search, review, implementation, tests) may be delegated according to the
-  available capabilities; cross-provider verification is not required — the user decides when to
-  verify the work or request a verifier agent.
-- Models from any available provider may be used as the task requires; there is no provider
-  restriction for subagents.
-- Weigh capability, reliability, cost and availability. If a model fails or runs out of quota,
-  report the switch and pick a suitable alternative from any available provider; do not keep
-  retrying the failing model.
-- For complicated problems (hard design or architecture, bugs that resist fixing, high-risk
-  reviews), escalate to more capable models, such as Claude Opus 5.5, GPT-6.1 Sol or other
-  high-end models available. Say why you escalate, and return to the usual model for routine work.
-- The main agent coordinates, makes the complex decisions and performs the final review of
-  delegated work. If a requested model is unavailable, say so and use another suitable one.
-- Every rule in this file (asset policy, clean room, never crash, quality gates) binds subagents
-  exactly as it binds anyone else.
+- First choice: GPT-6.1 Terra, preferably from the OpenAI provider. Any available model or provider
+  may be used when the task needs it; check what exists with `opencode.models` and never hardcode
+  model ids in code or docs.
+- Bounded tasks (search, review, implementation, tests) may be delegated. Cross-provider
+  verification is not required; the user decides when to ask for a verifier.
+- Weigh capability, reliability, cost and availability. If a model fails or runs out of quota, say
+  so and switch; don't keep retrying it.
+- Escalate hard problems (difficult design, stubborn bugs, high-risk reviews) to stronger models
+  such as Claude Opus 5.5 or GPT-6.1 Sol, say why, and go back for routine work.
+- The main agent coordinates, decides and reviews delegated work. Every rule here binds subagents.
 
-## Contributor credits (About window)
+## 9. Contributor credits
 
-- About ▸ Contributors/Models are compiled into the binary from `contributors/contributors.json`
-  (commit stats; generated, never hand-edit) and `contributors/people.toml` (names people chose for
-  themselves). See `docs/contributors.md`.
-- **Agents working for a contributor:** when you prepare a PR, check whether your human's GitHub
-  username has a `[people.<username>]` entry in `contributors/people.toml`. If not, ask them once
-  whether they want to be credited by more than their username: a real name, a display name, and/or
-  their public GitHub profile name (`sync_github_name = true`). If yes, add **only their own** entry
-  (copy the template at the top of the file)
-  and include it in their PR, committed as them. If no, change nothing: they are credited as
-  `@username` anyway.
-- Never add, edit, guess or copy anyone else's entry or name (not from git config, commit authors or
-  GitHub profiles). Never hand-edit `contributors.json`.
+About ▸ Contributors is built from `contributors/contributors.json` (generated; never hand-edit) and
+`contributors/people.toml` (names people chose); see `docs/contributors.md`. When you prepare a PR
+for someone whose GitHub username has no `[people.<username>]` entry, ask them once whether they
+want a real name, display name or their GitHub profile name (`sync_github_name = true`). If yes, add
+only their entry, from the template at the top of the file, in their PR. If no, change nothing: they
+are credited as `@username`. Never add, edit or guess anyone else's entry or name, and never copy names from git config,
+commit authors or GitHub profiles.
 
-## CI workflows
-- Workflows in `.github/workflows/` call the shared workflows in [`storytold/craft-common-actions`](https://github.com/storytold/craft-common-actions) at `@main`, with their inputs and secrets. No other jobs: if no shared workflow does what's needed, it doesn't go here.
-- Don't add or change CI in a feature or fix PR. If the existing workflows can't build or test a change, link an existing craft-common-actions issue or PR, or open a new issue, or a PR only for a small fix that is safe for every app and does not increase CI time.
-- Some workflow files here still run their own jobs. Don't add to them. Moving a job into craft-common-actions is its own task, never part of another PR, and the job stays here until a shared workflow runs it.
+## 10. CI
 
-## Shared libraries
-
-Before adding or changing file-format, codec, protocol, or reusable UI code, check `storytold/craft-libs` and its open PRs first; reuse or extend the shared library rather than duplicating it locally, keep app-specific policy and model mapping in the app, and preserve behavior, security/resource limits, attribution, and regression coverage during cutovers.
+Workflows in `.github/workflows/` only call the shared workflows in
+[storytold/craft-common-actions](https://github.com/storytold/craft-common-actions) at `@main`.
+Don't add or change CI in a feature or fix PR: if a change can't be built or tested, link or open a
+craft-common-actions issue, or send it a small PR that is safe for every app and doesn't lengthen
+CI. Some workflow files still run their own jobs; don't add to them. Moving a job to
+craft-common-actions is a task of its own, and the job stays here until a shared workflow runs it.
