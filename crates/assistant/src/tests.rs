@@ -1,12 +1,13 @@
 use std::ffi::OsString;
+use std::fs;
 use std::io::{self, Read, Write};
 use std::process::Command;
 use std::sync::Arc;
-use std::sync::atomic::AtomicBool;
+use std::sync::atomic::{AtomicBool, AtomicU64};
 use std::thread;
 use std::time::{Duration, Instant};
 
-use crate::process::{AUTH_ARGS, Limits, credential_override_keys, generation_args, key_present, run};
+use crate::process::{AUTH_ARGS, Limits, ScratchDir, credential_override_keys, generation_args, key_present, run};
 use crate::protocol::{
     Source, check_shape_refs, parse_auth_status, parse_response, parse_stream_response, prompt_payload, select_auth, stream_payload,
 };
@@ -650,7 +651,7 @@ fn subprocess_stdin_and_stdout_round_trip() {
 fn subprocess_times_out_and_is_reaped() {
     let cancel = AtomicBool::new(false);
     let limits = Limits { stdout: 1024, deadline: Duration::from_millis(300) };
-    let started = Instant::now();
+    let started = test_now();
     assert_eq!(run(helper_command("sleep"), b"", limits, &cancel).map(|_| ()), Err(Error::Timeout));
     assert!(started.elapsed() < Duration::from_secs(30));
 }
@@ -665,7 +666,7 @@ fn subprocess_cancellation_stops_the_child() {
         flag.store(true, std::sync::atomic::Ordering::SeqCst);
     });
     let limits = Limits { stdout: 1024, deadline: Duration::from_secs(60) };
-    let started = Instant::now();
+    let started = test_now();
     assert_eq!(run(helper_command("sleep"), b"", limits, &cancel).map(|_| ()), Err(Error::Cancelled));
     assert!(started.elapsed() < Duration::from_secs(30));
     let _ = setter.join();
@@ -677,6 +678,64 @@ fn subprocess_overflow_is_rejected() {
     let cancel = AtomicBool::new(false);
     let limits = Limits { stdout: 1024, deadline: Duration::from_secs(60) };
     assert_eq!(run(helper_command("flood"), b"", limits, &cancel).map(|_| ()), Err(Error::InvalidResponse));
+}
+
+/// The workspace temp directory. `claim` takes the base and the counter as arguments so a test can
+/// force a collision without touching the real temp directory or the process-wide counter.
+fn scratch_base(tag: &str) -> std::path::PathBuf {
+    let base = std::env::temp_dir().join(format!("deckcraft-assistant-{tag}-{}", std::process::id()));
+    let _ = fs::remove_dir_all(&base);
+    base
+}
+
+#[test]
+fn scratch_dir_skips_a_directory_left_by_a_recycled_process_id() {
+    let base = scratch_base("claim");
+    assert!(fs::create_dir(&base).is_ok());
+    let candidate = |count: u64| base.join(format!("deckcraft-assistant-{}-{count}", std::process::id()));
+    // A crashed run left two directories behind and its process id is now ours.
+    assert!(fs::create_dir(candidate(7)).is_ok());
+    assert!(fs::create_dir(candidate(8)).is_ok());
+    let counter = AtomicU64::new(7);
+    let claimed = ScratchDir::claim(&base, &counter).expect("a stale name must not fail the request");
+    assert_eq!(claimed.path(), candidate(9).as_path());
+    assert!(candidate(7).exists() && candidate(8).exists(), "stale directories are left untouched");
+    drop(claimed);
+    assert!(!candidate(9).exists(), "an empty scratch directory is removed on drop");
+    let _ = fs::remove_dir_all(&base);
+}
+
+#[test]
+fn scratch_dir_reports_an_unusable_base_directory() {
+    let base = scratch_base("missing").join("absent");
+    let counter = AtomicU64::new(0);
+    let claimed = ScratchDir::claim(&base, &counter).map(|dir| dir.path().to_path_buf());
+    assert_eq!(claimed, Err(Error::Unavailable));
+}
+
+/// Production reads the clock only through `process::monotonic_now`; a test that measures elapsed
+/// time reads it here, and here alone.
+#[allow(clippy::disallowed_methods)]
+fn test_now() -> Instant {
+    Instant::now()
+}
+
+#[test]
+fn result_envelope_parses_and_ignores_the_cli_extra_fields() {
+    // The envelope `claude --output-format json` writes: the four fields the parser reads plus the
+    // bookkeeping the CLI also emits (`session_id` here is a placeholder, not a real one). Kept as a
+    // fixture so a change to the parser or the schema cannot silently break live requests.
+    let envelope = r#"{"type":"result","subtype":"success","is_error":false,"api_error_status":null,
+        "duration_ms":4123,"duration_api_ms":3900,"num_turns":1,
+        "session_id":"00000000-0000-4000-8000-000000000000","total_cost_usd":0.01,
+        "usage":{"input_tokens":1200,"output_tokens":90},
+        "structured_output":{"suggestions":[{"index":0,"text":"Agenda"}],
+        "explanation":"Shortened the title."}}"#;
+    let parsed = parse_response(envelope.as_bytes(), 1).expect("the CLI envelope must parse");
+    assert_eq!(parsed.suggestions.len(), 1);
+    assert_eq!(parsed.suggestions[0].text, "Agenda");
+    assert_eq!(parsed.explanation, "Shortened the title.");
+    assert!(parsed.deck.is_none());
 }
 
 #[test]
