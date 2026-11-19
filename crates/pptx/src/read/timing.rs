@@ -247,17 +247,22 @@ fn behaviour_auto_reverses(c: &El) -> bool {
 /// Volume, mute, Loop until Stopped, Hide While Not Playing and Play Full Screen live in the timing tree
 /// (`p:video`/`p:audio` > `p:cMediaNode`), not on the picture: copy them onto the target's `MediaClip`.
 /// Returns whether `st` (`p:stCondLst`) defers playback instead of starting immediately on slide entry.
+/// OOXML default for a missing `delay` is `0` (start now).
+fn delay_is_immediate(c: &El) -> bool {
+    matches!(c.attr("delay").map(str::trim), None | Some("") | Some("0"))
+}
+
 fn defers_start(st: &El) -> bool {
     let is_auto_begin = |c: &El| {
         c.attr("evt") == Some("onBegin")
-            && c.attr("delay").map(str::trim) == Some("0")
+            && delay_is_immediate(c)
             && c.child("tgtEl").is_none()
             && c.child("tn").is_none()
             && c.child("rtn").is_none()
     };
     let has_on_begin = st.children_named("cond").any(is_auto_begin);
     st.children_named("cond")
-        .any(|c| (c.attr("evt").is_some() && !is_auto_begin(c)) || (!has_on_begin && c.attr("delay").map(str::trim) != Some("0")))
+        .any(|c| (c.attr("evt").is_some() && !is_auto_begin(c)) || (!has_on_begin && !delay_is_immediate(c)))
 }
 
 /// Applies `p:video`/`p:audio` timing node settings and main-sequence autoplay triggers to media shapes.
@@ -305,7 +310,7 @@ pub fn media_settings(timing: &El, ctx: &IdCtx, shapes: &mut [Shape]) {
         if cm.u32("numSld").is_some_and(|n| n > 1) {
             clip.play_across_slides = true;
         }
-        if !deferred && cm.path(&["cTn", "stCondLst", "cond"]).is_some_and(|c| c.attr("evt").is_none() && c.attr("delay").map(str::trim) == Some("0"))
+        if !deferred && cm.path(&["cTn", "stCondLst", "cond"]).is_some_and(|c| c.attr("evt").is_none() && delay_is_immediate(c))
         {
             clip.autoplay = true;
         }
