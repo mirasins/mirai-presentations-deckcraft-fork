@@ -22,9 +22,6 @@
   <img alt="License: MIT OR Apache-2.0" src="https://img.shields.io/badge/license-MIT%20OR%20Apache--2.0-blue?style=flat-square">
   <img alt="Written in Rust" src="https://img.shields.io/badge/written%20in-Rust-b7410e?style=flat-square">
   <img alt="Platforms" src="https://img.shields.io/badge/platforms-macOS%20%C2%B7%20Windows%20%C2%B7%20Linux%20%C2%B7%20BSD%20%C2%B7%20Web-555?style=flat-square">
-  <br>
-  <a href="https://sonarcloud.io/project/overview?id=storytold_deckcraft"><img alt="Scanned by SonarCloud" src="https://img.shields.io/badge/Scanned_by-SonarCloud-4b9fd5?style=flat-square&logo=sonarqubecloud&logoColor=white"></a>
-  <a href="https://coderabbit.ai"><img alt="Reviewed by CodeRabbit" src="https://img.shields.io/coderabbit/prs/github/storytold/deckcraft?style=flat-square&label=Reviewed%20by%20CodeRabbit&logo=coderabbit"></a>
 </p>
 
 <p align="center">
@@ -59,7 +56,7 @@
 
 ## What works today
 
-DeckCraft is in alpha, heading for beta (see the [roadmap](ROADMAP.md)).
+Mirai Presentations is in alpha, heading for beta (see the [roadmap](ROADMAP.md)).
 Today it can:
 
 - **Make decks**: slide masters and eleven layouts with placeholders that inherit position and
@@ -110,14 +107,15 @@ cargo run --release -p deckcraft-cli -- render --sample --all --scale 1 out/
 On Linux, the build also needs the ALSA headers for slide-show sound: `alsa-lib-devel` on Fedora,
 `libasound2-dev` on Debian and Ubuntu, `alsa-lib` on Arch. Without them it stops at `alsa-sys`.
 
-Fonts come from [craft-fonts](https://github.com/storytold/craft-fonts): clone it next to this repo
-(`../craft-fonts`) and local builds pick it up automatically; without it DeckCraft uses your system
-fonts.
+Fonts come from [craft-fonts](https://github.com/storytold/craft-fonts), the original ArtCraft
+project's font set: clone it next to this repo (`../craft-fonts`) and local builds pick it up
+automatically; without it Mirai Presentations uses your system fonts.
 
 Each [GitHub release](https://github.com/mirasins/mirai-presentations-deckcraft-fork/releases) has ready-made builds, on Linux as
 an AppImage, a `.deb`, an `.rpm` and a tarball. On Gentoo, the community [::snakebyte
-overlay](https://github.com/switch87/snakebyte-overlay) packages the Linux release as
-`app-office/deckcraft-bin` (not maintained by the DeckCraft team):
+overlay](https://github.com/switch87/snakebyte-overlay) packages the original project's DeckCraft
+release as `app-office/deckcraft-bin` — that installs the original ArtCraft project's app, not
+Mirai Presentations, and it is not maintained by the DeckCraft team:
 
 ```sh
 eselect repository add snakebyte git https://github.com/switch87/snakebyte-overlay.git
@@ -146,7 +144,7 @@ app logs to the browser console instead.
 
 ## Agents, CLI and MCP
 
-Every action in DeckCraft is a command with a stable id, so people, scripts and AI agents use the
+Every action in Mirai Presentations is a command with a stable id, so people, scripts and AI agents use the
 same verbs:
 
 ```sh
@@ -159,7 +157,7 @@ deckcraft-cli mcp --automation-read-root DIR --automation-write-root DIR   # con
 
 ## Roadmap
 
-DeckCraft is in **alpha**. It covers **84% of the features tracked in [`docs/target-app-parity.md`](docs/target-app-parity.md) by breadth** (92% of the core
+Mirai Presentations is in **alpha**. It covers **84% of the features tracked in [`docs/target-app-parity.md`](docs/target-app-parity.md) by breadth** (92% of the core
 ones, measured) and is about **55% ready for real work across all tracked capabilities** (estimated).
 See [ROADMAP.md](ROADMAP.md) for the stage, numbers by dimension and what's next,
 [docs/target-app-parity.md](docs/target-app-parity.md) for the full assessment,
@@ -218,7 +216,7 @@ DirectX 12 shaders are compiled with FXC, which is part of Windows, so no `dxcom
 
 RISC-V 64 (riscv64): `deckcraft-<ver>-linux-riscv64.tar.gz`, a tarball only (cross-compiled; needs glibc 2.39+, e.g. Ubuntu 24.04+).
 
-**Runtime libraries.** The window-system, GPU and file-dialog libraries DeckCraft needs are opened
+**Runtime libraries.** The window-system, GPU and file-dialog libraries Mirai Presentations needs are opened
 when the app starts (`dlopen` through `x11-dl`, `xkbcommon-dl`, `ash`, `glutin` and `rfd`) instead
 of being linked in, so `ldd` shows none of them: an install that satisfies the linked dependencies
 can still fail at start-up with a loader error and no hint of what to install. Only
@@ -244,10 +242,10 @@ artifact will need (#954).
   included. On a real GPU install your vendor's driver instead (`mesa-vulkan-intel`,
   `mesa-vulkan-ati`, `mesa-vulkan-nouveau`, …).
 - Without Vulkan the app falls back to CPU rendering through Mesa's GL drivers. It works, but
-  slowly — a driver limit, not a DeckCraft bug.
+  slowly — a driver limit, not a Mirai Presentations bug.
 - `xdg-desktop-portal` (with `xdg-desktop-portal-gtk` or `-kde`; `-wlr` has no file chooser, so
   on wlroots compositors install `zenity`) is what the Open and Save dialogs talk to; `xkeyboard-config` holds the XKB keyboard data `libxkbcommon` reads.
-- fontconfig and freetype are not needed: DeckCraft reads `/usr/share/fonts` itself and embeds its
+- fontconfig and freetype are not needed: Mirai Presentations reads `/usr/share/fonts` itself and embeds its
   presentation fonts.
 
 Building from source on musl also needs `build-base pkgconf alsa-lib-dev` (`alsa-lib-dev` is the
@@ -284,7 +282,7 @@ tell us what you wish the app could do.
 
 ## License and credits
 
-DeckCraft is dual-licensed under [MIT](LICENSE-MIT) or [Apache-2.0](LICENSE-APACHE), at your option.
+Mirai Presentations is dual-licensed under [MIT](LICENSE-MIT) or [Apache-2.0](LICENSE-APACHE), at your option.
 Copyright (c) 2026 ArtCraft Team and the DeckCraft contributors. Required notices are in [NOTICE](NOTICE).
 
 Mirai Presentations is an independent fork of **[DeckCraft by

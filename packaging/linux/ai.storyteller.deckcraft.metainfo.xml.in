@@ -5,14 +5,14 @@
   <id>ai.storyteller.deckcraft</id>
   <metadata_license>CC0-1.0</metadata_license>
   <project_license>MIT OR Apache-2.0</project_license>
-  <name>DeckCraft</name>
+  <name>Mirai Presentations</name>
   <summary>Create and present slide decks</summary>
   <developer id="ai.storyteller">
     <name>Learning Machines LLC</name>
   </developer>
   <description>
     <p>
-      DeckCraft builds presentations and slide shows: themes, layouts, shapes, pictures,
+      Mirai Presentations builds presentations and slide shows: themes, layouts, shapes, pictures,
       tables, charts, transitions and animations. It opens and saves PowerPoint (.pptx) files
       and presents them full screen with a presenter view.
     </p>
@@ -45,7 +45,7 @@
   <screenshots>
     <screenshot type="default">
       <caption>Slide editor with thumbnails, a process diagram and notes</caption>
-      <image type="source" width="1600" height="1000">https://raw.githubusercontent.com/storytold/deckcraft/main/docs/images/editor.png</image>
+      <image type="source" width="1600" height="1000">https://raw.githubusercontent.com/mirasins/mirai-presentations-deckcraft-fork/main/docs/images/editor.png</image>
     </screenshot>
   </screenshots>
   <branding>
