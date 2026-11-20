@@ -1,5 +1,7 @@
 # DeckCraft roadmap
 
+> **Last updated:** 2026-11-20 · **Change:** trivial (Mirai sync: merged upstream 6ebac8b9; fork branding, assistant and themes retained; estimates unchanged.)
+
 > **Last updated:** 2026-11-18 · **Change:** trivial (Mirai sync: merged upstream 5e36a355; fork branding, assistant and themes retained; estimates unchanged.)
 
 > **Last updated:** 2026-11-17 · **Change:** trivial (Mirai sync: merged upstream 1ec01a09; fork branding, assistant and themes retained; estimates unchanged.)
@@ -164,6 +166,7 @@ app's JSON control channel (`deckcraft --control PORT`).
 
 ## Progress log
 
+- 2026-11-20: Mirai sync: merged upstream 6ebac8b9 (13 commits); fork branding, assistant and themes retained; estimates unchanged.
 - 2026-11-18: Mirai sync: merged upstream 5e36a355 (59 commits); fork branding, assistant and themes retained; estimates unchanged.
 - 2026-11-17: Mirai sync: merged upstream e0f7fc8c (10 commits); fork branding, assistant and themes retained; estimates unchanged.
 - 2026-11-17: Mirai sync: merged upstream 1ec01a09; fork branding, assistant and themes retained; estimates unchanged.
